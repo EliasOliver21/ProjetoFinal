@@ -45,6 +45,7 @@ public class viewswing implements ActionListener {
 	private JButton btnBuscarNome = new JButton("Buscar por Nome");
 	private JButton btnBuscarTodos = new JButton("Buscar Todos");
 	private JButton btnBuscarNomeCategoria = new JButton("Buscar por categoria");
+	private JButton btnLimpar = new JButton("Limpar");
 
 	EntityManager em = JPAUtil.getEntityManager();
 
@@ -71,6 +72,7 @@ public class viewswing implements ActionListener {
 		btnBuscarNome.setActionCommand("buscarPorNome");
 		btnBuscarTodos.setActionCommand("buscarTodos");
 		btnBuscarNomeCategoria.setActionCommand("buscarPorNomeCategoria");
+		btnLimpar.setActionCommand("limpar");
 
 		btnCadastrar.addActionListener(this);
 		btnRemover.addActionListener(this);
@@ -79,6 +81,7 @@ public class viewswing implements ActionListener {
 		btnBuscarNome.addActionListener(this);
 		btnBuscarTodos.addActionListener(this);
 		btnBuscarNomeCategoria.addActionListener(this);
+		btnLimpar.addActionListener(this);
 
 		frmCategoria.add(lblEscolha);
 		frmCategoria.add(txtEscolha);
@@ -99,6 +102,7 @@ public class viewswing implements ActionListener {
 		frmCategoria.add(btnAtualizar);
 		frmCategoria.add(btnBuscarId);
 		frmCategoria.add(btnRemover);
+		frmCategoria.add(btnLimpar);
 
 		frmCategoria.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -260,6 +264,15 @@ public class viewswing implements ActionListener {
 			em.clear();
 			
 		
+		} else if(e.getActionCommand().equals("limpar")) {
+			
+			txtCategoria.setText("");
+			txtCategoriaId.setText("");
+			txtCliente.setText("");
+			txtClienteId.setText("");
+			txtProduto.setText("");
+			txtProdutoId.setText("");
+			txtEscolha.setText("");
 		}
 		
 	}
