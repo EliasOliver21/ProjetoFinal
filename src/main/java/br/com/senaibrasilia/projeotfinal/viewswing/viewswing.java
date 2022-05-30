@@ -3,6 +3,7 @@ package br.com.senaibrasilia.projeotfinal.viewswing;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.swing.JButton;
@@ -103,6 +104,7 @@ public class viewswing implements ActionListener {
 		frmCategoria.add(btnBuscarId);
 		frmCategoria.add(btnRemover);
 		frmCategoria.add(btnLimpar);
+		frmCategoria.add(btnBuscarNomeCategoria);
 
 		frmCategoria.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -123,22 +125,45 @@ public class viewswing implements ActionListener {
 			CategoriaDao cDao = new CategoriaDao(em);
 			ProdutoDao pDao = new ProdutoDao(em);
 			ClienteDao clDao = new ClienteDao(em);
-			c.setId(0);
-			p.setId(0);
-			cl.setId(0);
+			String escolha = txtEscolha.getText();
+			
 			em.getTransaction().begin();
-			c.setNome(txtCategoria.getText());
-			cDao.cadastrar(c);
-			p.setNome(txtProduto.getText());
-			pDao.cadastrar(p);
-			cl.setNome(txtCliente.getText());
-			clDao.cadastrar(cl);
+			
+			if (escolha.equalsIgnoreCase("P")) {
+				
+				int idp = Integer.parseInt(txtProdutoId.getText());
+				int idc = Integer.parseInt(txtCategoriaId.getText());
+				int idcl = Integer.parseInt(txtClienteId.getText());
+			
+				//PRODUTO
+				p.setNome(txtProduto.getText());
+				pDao.cadastrar(p);
+				c.setId(idc);
+				cl.setId(idcl);
+				p.setCategoria(c);
+				p.setCliente(cl);
+				
+				
+			}else if (escolha.equalsIgnoreCase("C")) {
+				
+				//CATEGORIA
+				c.setNome(txtCategoria.getText());
+				cDao.cadastrar(c);
+				
+			}else if (escolha.equalsIgnoreCase("CL")) {
+				
+				//CLIENTE
+				cl.setNome(txtCliente.getText());
+				clDao.cadastrar(cl);
+				
+			}
+			
 			em.getTransaction().commit();
 			txtCategoria.setText("");
 			txtProduto.setText("");
 			txtCliente.setText("");
 			em.clear();
-
+			
 		} else if (e.getActionCommand().equals("buscarId")) {
 
 			String escolha = txtEscolha.getText();
@@ -160,9 +185,9 @@ public class viewswing implements ActionListener {
 				int id1 = Integer.parseInt(txtProdutoId.getText());
 				p = pDao.buscarPorId(id1);
 				if (p == null) {
-					txtCategoria.setText("Id nulo digite outro id.");
+					txtProduto.setText("Id nulo digite outro id.");
 				} else {
-					txtCategoria.setText(p.getNome());
+					txtProduto.setText(p.getNome());
 				}
 
 			} else if (escolha.equalsIgnoreCase("CL")) {
@@ -273,6 +298,46 @@ public class viewswing implements ActionListener {
 			txtProduto.setText("");
 			txtProdutoId.setText("");
 			txtEscolha.setText("");
+		
+		}else if (e.getActionCommand().equals("buscarPorNomeCategoria")) {
+			
+			String escolha = txtEscolha.getText();
+
+			// CATEGORIA
+			if (escolha.equalsIgnoreCase("C")) {
+				CategoriaDao cDao = new CategoriaDao(em);
+				int id = Integer.parseInt(txtCategoriaId.getText());
+				c = cDao.buscarPorId(id);
+				if (c == null) {
+					txtCategoria.setText("Id nulo digite outro id.");
+				} else {
+					txtCategoria.setText(c.getNome());
+				}
+				// PRODUTO
+			} else if (escolha.equalsIgnoreCase("P")) {
+
+				ProdutoDao pDao = new ProdutoDao(em);
+				List <Produto> p1 = pDao.buscarPorNomeDaCategoria(txtCategoria.getText());
+				
+				if (p1 == null) {
+					txtCategoria.setText("Id nulo digite outro id.");
+				} else {
+					System.out.println(p1.toString());
+				}
+
+			} else if (escolha.equalsIgnoreCase("CL")) {
+
+				ClienteDao clDao = new ClienteDao(em);
+				int id2 = Integer.parseInt(txtClienteId.getText());
+				cl = clDao.buscarPorId(id2);
+				if (cl == null) {
+					txtCliente.setText("Id nulo digite outro id.");
+				} else {
+					txtCliente.setText(cl.getNome());
+				}
+
+			}
+			
 		}
 		
 	}

@@ -26,7 +26,7 @@ public class Produto {
 	@ManyToOne
 	private Categoria categoria;
 	@ManyToOne
-	private Categoria cliente;
+	private Cliente cliente;
 	
 	public Produto() {
 		
@@ -37,11 +37,12 @@ public class Produto {
 		this.descricao = descricao;
 		this.preco = preco;
 	}
-	public Produto(String nome, String descricao,BigDecimal preco,Categoria categoria) {
+	public Produto(String nome, String descricao,BigDecimal preco,Categoria categoria,Cliente cliente) {
 		this.categoria = categoria;
 		this.preco = preco;
 		this.descricao = descricao;
 		this.nome = nome;
+		this.cliente = cliente;
 	}
 	public Produto(Long id, String nome, String descricao, BigDecimal preco) {
 		super();
@@ -78,13 +79,19 @@ public class Produto {
 	}
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + "]";
+		return "Produto [id=" + id + ", nome=" + nome +"]";
 	}
 	public Categoria getCategoria() {
 		return categoria;
 	}
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	
