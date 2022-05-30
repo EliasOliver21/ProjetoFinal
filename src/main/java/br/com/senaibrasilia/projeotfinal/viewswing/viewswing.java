@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.com.senaibrasilia.projetofinal.dao.CategoriaDao;
@@ -300,43 +301,16 @@ public class viewswing implements ActionListener {
 			txtEscolha.setText("");
 		
 		}else if (e.getActionCommand().equals("buscarPorNomeCategoria")) {
-			
-			String escolha = txtEscolha.getText();
-
-			// CATEGORIA
-			if (escolha.equalsIgnoreCase("C")) {
-				CategoriaDao cDao = new CategoriaDao(em);
-				int id = Integer.parseInt(txtCategoriaId.getText());
-				c = cDao.buscarPorId(id);
-				if (c == null) {
-					txtCategoria.setText("Id nulo digite outro id.");
-				} else {
-					txtCategoria.setText(c.getNome());
-				}
+					
 				// PRODUTO
-			} else if (escolha.equalsIgnoreCase("P")) {
-
 				ProdutoDao pDao = new ProdutoDao(em);
 				List <Produto> p1 = pDao.buscarPorNomeDaCategoria(txtCategoria.getText());
 				
 				if (p1 == null) {
 					txtCategoria.setText("Id nulo digite outro id.");
 				} else {
-					System.out.println(p1.toString());
-				}
-
-			} else if (escolha.equalsIgnoreCase("CL")) {
-
-				ClienteDao clDao = new ClienteDao(em);
-				int id2 = Integer.parseInt(txtClienteId.getText());
-				cl = clDao.buscarPorId(id2);
-				if (cl == null) {
-					txtCliente.setText("Id nulo digite outro id.");
-				} else {
-					txtCliente.setText(cl.getNome());
-				}
-
-			}
+					JOptionPane.showMessageDialog(null,p1.toString());
+				}			
 			
 		}
 		
