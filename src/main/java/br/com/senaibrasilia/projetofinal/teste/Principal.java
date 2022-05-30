@@ -18,23 +18,6 @@ public class Principal {
  
     public static void main(String[] args) {
     	
-    /*	
-       cadastrarProduto();
-        EntityManager em = JPAUtil.getEntityManager();
-        ProdutoDao produtoDao = new ProdutoDao(em);
-       
-        Produto p = produtoDao.buscarPorId(1l);
-        System.out.println(p.getPreco());
-       
-        List<Produto> todos = produtoDao.buscarPorNomeDaCategoria("Notebooks");
-        todos.forEach(p2 -> System.out.println(p.getNome()));
-        
-        System.out.println("CHUPA PYTHON!!!");
-        */
-   
-        //List<Produto> precoDoProduto = produtoDao.buscarPrecoDoProdutoComNome("Xiaomi Redmi");
-       // System.out.println("Preco do Produto: " +precoDoProduto);
-    	
     	new viewswing();
     }
  
